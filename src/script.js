@@ -50,7 +50,7 @@ particlesGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 const particlesMaterial = new THREE.PointsMaterial();
 particlesMaterial.size = 0.1;
 particlesMaterial.sizeAttenuation = true;
-particlesMaterial.color = new THREE.Color("#ff88cc");
+// particlesMaterial.color = new THREE.Color("#ff88cc");
 particlesMaterial.transparent = true;
 particlesMaterial.alphaMap = particleTexture;
 //fixing the edges of the particles
