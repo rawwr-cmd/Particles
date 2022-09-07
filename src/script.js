@@ -17,7 +17,7 @@ const scene = new THREE.Scene();
 
 /* Textures */
 const textureLoader = new THREE.TextureLoader();
-const particleTexture = textureLoader.load("/textures/particles/2.png");
+const particleTexture = textureLoader.load("/textures/particles/heart.png");
 
 /** OBJECTS **/
 //  MATERIALS
@@ -128,21 +128,21 @@ const tick = () => {
   // particles.rotation.y = elapsedTime;
 
   // Update particles
-  // particles.rotation.y = elapsedTime * 0.1;
+  particles.rotation.y = elapsedTime * 0.1;
 
-  for (let i = 0; i < count; i++) {
-    const i3 = i * 3; //to get the index of the position(x, y, z)
+  // for (let i = 0; i < count; i++) {
+  //   const i3 = i * 3; //to get the index of the position(x, y, z)
 
-    // console.log(particlesGeometry.attributes.position.array);
+  //   // console.log(particlesGeometry.attributes.position.array);
 
-    const x = particlesGeometry.attributes.position.array[i3];
-    particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(
-      elapsedTime + x
-    );
-  }
+  //   const x = particlesGeometry.attributes.position.array[i3];
+  //   particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(
+  //     elapsedTime + x
+  //   );
+  // }
 
   //to update the particles
-  particlesGeometry.attributes.position.needsUpdate = true;
+  // particlesGeometry.attributes.position.needsUpdate = true;
 
   // Update controls
   controls.update();
