@@ -15,6 +15,10 @@ const canvas = document.querySelector("canvas.webgl");
 // Scene
 const scene = new THREE.Scene();
 
+/* Textures */
+const textureLoader = new THREE.TextureLoader();
+const particleTexture = textureLoader.load("/textures/particles/2.png");
+
 /** OBJECTS **/
 //  MATERIALS
 
@@ -22,12 +26,41 @@ const scene = new THREE.Scene();
 // Objects
 
 //Geometry
-const particlesGeometry = new THREE.SphereGeometry(1, 32, 32);
+const particlesGeometry = new THREE.BufferGeometry();
+const count = 20000; //is same as count * 3
+
+const positions = new Float32Array(count * 3);
+const colors = new Float32Array(count * 3);
+
+for (let i = 0; i < count * 3; i++) {
+  //positions of particles(math.random goes from 0 to 1, later changes to -0.5 to 0.5 which is multiplied by 10)
+  positions[i] = (Math.random() - 0.5) * 10;
+  //colors of particles
+  colors[i] = Math.random(); //random color
+}
+
+particlesGeometry.setAttribute(
+  "position",
+  new THREE.BufferAttribute(positions, 3)
+);
+
+particlesGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
 //MATERIALS
 const particlesMaterial = new THREE.PointsMaterial();
-particlesMaterial.size = 0.02;
+particlesMaterial.size = 0.1;
 particlesMaterial.sizeAttenuation = true;
+particlesMaterial.color = new THREE.Color("#ff88cc");
+particlesMaterial.transparent = true;
+particlesMaterial.alphaMap = particleTexture;
+//fixing the edges of the particles
+// particlesMaterial.alphaTest = 0.001;
+//to show the particles without caring about background
+// particlesMaterial.depthTest = false;
+//what comes first gets shown first
+particlesMaterial.depthWrite = false;
+particlesMaterial.blending = THREE.AdditiveBlending;
+particlesMaterial.vertexColors = true;
 
 // Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
